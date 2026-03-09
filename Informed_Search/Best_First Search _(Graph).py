@@ -1,3 +1,8 @@
+# This program implements Best-First Search on a graph.
+# It uses a Priority Queue and a heuristic value to decide
+# which node to visit next. The node with the lowest heuristic
+# value is expanded first until the goal node is found.
+
 from queue import PriorityQueue
 
 graph = {
