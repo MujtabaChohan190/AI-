@@ -3,6 +3,29 @@
 # which node to visit next. The node with the lowest heuristic
 # value is expanded first until the goal node is found.
 
+
+# STEP 1 — SETUP
+# Put the starting node into the Priority Queue with cost 0
+# pq = [(0, 'S')]
+
+# STEP 2 — LOOP (repeat until PQ is empty)
+# Pop the smallest/most promising node from PQ
+# Example: pq had [(3,A),(5,C),(6,B)] → pop (3,A) first
+
+# STEP 3 — GOAL CHECK
+# If popped node == goal → print "Goal Reached" and STOP
+# Example: node = 'K' and goal = 'K' → stop ✅
+
+# STEP 4 — EXPAND (only if not goal)
+# Loop through all neighbors of current node
+# If neighbor not visited → push (weight, neighbor) into PQ
+# Example: node='H' → push (5,I) and (6,J) into PQ
+
+# STEP 5 — REPEAT
+# Go back to STEP 2 and pop next smallest node
+# Keep going until goal is found or PQ becomes empty
+
+
 from queue import PriorityQueue
 
 graph = {
