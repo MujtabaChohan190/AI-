@@ -23,9 +23,9 @@ def best_first_search(graph, start, goal):
     visited = set()
     pq = PriorityQueue()
 
-    pq.put((0,start)) //A → PQ: [(9,D), (8,E)]
+    pq.put((0,start))  #A → PQ: [(9,D), (8,E)]
     while not pq.empty():
-        cost,node = pq.get() //gets smallest node 
+        cost,node = pq.get() #gets smallest node 
         if node not in visited:
             print(node,end=" ")
             visited.add(node) //we add all nodes in visited 
@@ -34,8 +34,8 @@ def best_first_search(graph, start, goal):
                 print("\nGoal Reached")
                 return
                 
-//Expanding node 
-            for neighbor,weight in graph[node]: //unpack tuple - A -> (d , 10) 
+#Expanding node 
+            for neighbor,weight in graph[node]: #unpack tuple - A -> (d , 10) 
                 if neighbor not in visited:
                     pq.put((weight,neighbor))
 
