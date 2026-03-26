@@ -65,3 +65,31 @@ print("Obstacle added at (2,2). Recalculating...")
 
 path = a_star(maze, start, goal)
 print("New Path:", path)
+
+
+
+# ============================================================
+# DYNAMIC A* SEARCH — HOW IT WORKS
+# ============================================================
+
+# STEP 1 — SETUP
+# Push start (0,0) into open_list with f=0
+# g_cost = {(0,0): 0}   parent = {(0,0): None}
+
+# STEP 2 — LOOP (repeat until open_list empty)
+# open_list.get() pops cell with lowest f automatically
+# Example: [(6,(2,0)),(7,(1,0))] → pop (6,(2,0))
+
+# STEP 3 — GOAL CHECK
+# If current == (4,4) → trace parent{} back to start
+# Reverse → return complete path ✅
+
+# STEP 4 — EXPAND
+# Try 4 directions → check bounds → skip walls (==1)
+# new_g = g_cost[current] + 1  (every step costs 1)
+# f = new_g + manhattan distance to goal
+# Only push if cheaper than known g_cost
+
+# STEP 5 — OBSTACLE APPEARS
+# maze[2][2] = 1  ← block a cell dynamically
+# Run A* again on updated maze → finds new path
