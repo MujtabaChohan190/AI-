@@ -1,66 +1,49 @@
-# This program implements Greedy Best-First Search.
-# The algorithm expands the node that appears closest
-# to the goal based only on the heuristic value h(n).
-# It ignores the path cost g(n), which makes it faster
-# but not always optimal.
+from queue import PriorityQueue
 
 graph = {
-'A': {'B':2,'C':1},
-'B': {'D':4,'E':3},
-'C': {'F':1,'G':5},
-'D': {'H':2},
-'E': {},
-'F': {'I':6},
-'G': {},
-'H': {},
-'I': {}
+    'A': {'B':2,'C':1},
+    'B': {'D':4,'E':3},
+    'C': {'F':1,'G':5},
+    'D': {'H':2},
+    'E': {},
+    'F': {'I':6},
+    'G': {},
+    'H': {},
+    'I': {}
 }
 
 heuristic = {
-'A':7,'B':6,'C':5,'D':4,'E':7,
-'F':3,'G':6,'H':2,'I':0
+    'A':7,'B':6,'C':5,'D':4,'E':7,
+    'F':3,'G':6,'H':2,'I':0
 }
 
+def greedy_bfs(graph, start, goal):
+    frontier = PriorityQueue()
+    frontier.put((heuristic[start], start))
+    visited = set()
+    came_from = {start: None}
 
-def greedy_bfs(graph,start,goal):
+    while not frontier.empty():
+        h, current_node = frontier.get()
 
-    frontier=[(start,heuristic[start])]
-    visited=set()
-    came_from={start:None}
+        if current_node not in visited:          # ✅ simple check
+            print(current_node, end=" ")
+            visited.add(current_node)
 
-    while frontier:
+            if current_node == goal:
+                path = []
+                while current_node is not None:
+                    path.append(current_node)
+                    current_node = came_from[current_node]
+                path.reverse()
+                print("\nGoal found. Path:", path)
+                return
 
-        frontier.sort(key=lambda x:x[1])
-
-        current_node,_=frontier.pop(0)
-
-        if current_node in visited:
-            continue
-
-        print(current_node,end=" ")
-        visited.add(current_node)
-
-        if current_node==goal:
-
-            path=[]
-
-            while current_node is not None:
-                path.append(current_node)
-                current_node=came_from[current_node]
-
-            path.reverse()
-
-            print("\nGoal found with GBFS. Path:",path)
-            return
-
-        for neighbor in graph[current_node]:
-
-            if neighbor not in visited:
-                came_from[neighbor]=current_node
-                frontier.append((neighbor,heuristic[neighbor]))
+            for neighbor in graph[current_node]:
+                if neighbor not in visited:
+                    came_from[neighbor] = current_node
+                    frontier.put((heuristic[neighbor], neighbor))
 
     print("\nGoal not found")
 
-
-print("\nFollowing is the Greedy Best-First Search:")
-greedy_bfs(graph,'A','I')
+greedy_bfs(graph, 'A', 'I')
