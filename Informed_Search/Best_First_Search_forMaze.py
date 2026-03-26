@@ -26,24 +26,21 @@ def heuristic(current_pos, end_pos):
 
 
 def best_first_search(maze, start, end):
-
+    
     rows, cols = len(maze), len(maze[0])
-
     start_node = Node(start)
     end_node = Node(end)
 
     frontier = PriorityQueue()
     frontier.put(start_node)
-
     visited = set()
 
     while not frontier.empty():
 
         current_node = frontier.get()
         current_pos = current_node.position
-
+#if goal found , trace back to parents
         if current_pos == end:
-
             path = []
 
             while current_node:
@@ -51,7 +48,7 @@ def best_first_search(maze, start, end):
                 current_node = current_node.parent
 
             return path[::-1]
-
+#not found goal , add to viisted and expand the nodes
         visited.add(current_pos)
 
         for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:
@@ -64,10 +61,8 @@ def best_first_search(maze, start, end):
                 new_pos not in visited):
 
                 new_node = Node(new_pos, current_node)
-
                 new_node.g = current_node.g + 1
                 new_node.h = heuristic(new_pos, end)
-
                 new_node.f = new_node.h
 
                 frontier.put(new_node)
