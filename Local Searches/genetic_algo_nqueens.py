@@ -35,7 +35,7 @@ def select_parent(population):
     sample = random.sample(population, 3)
 
     # return the best (least conflicts)
-    best = min(sample, key=calculate_conflicts)
+    best = min(sample, key=calculate_conflicts)  #gets the best parent ,we do it twice in GA algo
     return best
 
 
@@ -46,7 +46,7 @@ def crossover(parent1, parent2):
     n = len(parent1)
     point = random.randint(1, n - 1)
 
-    child = parent1[:point] + parent2[point:]
+    child = parent1[:point] + parent2[point:]  
     return child
 
 
@@ -59,7 +59,7 @@ def mutate(state, rate):
 
     for i in range(n):
         if random.random() < rate:   #The if random.random() < rate: condition ensures that mutation happens randomly with a controlled probability, keeping GA effective.
-            new_state[i] = random.randint(0, n - 1)
+            new_state[i] = random.randint(0, n - 1) #we replace that particular row index of that state with random value
 
     return new_state
 
@@ -79,7 +79,7 @@ def genetic_algorithm(n):
     for generation in range(max_generations):
 
         # Step 2: check best solution
-        best = min(population, key=calculate_conflicts)
+        best = min(population, key=calculate_conflicts)  #gets the best parent and check if conflict is 0 thats best case so we return 
         best_conflicts = calculate_conflicts(best)
 
         if best_conflicts == 0:
@@ -89,7 +89,7 @@ def genetic_algorithm(n):
         # Step 3: create new population
         new_population = []
 
-        while len(new_population) < population_size:
+        while len(new_population) < population_size:  #This while loop fills the new generation by repeatedly creating children until we have as many boards as the population size.
             parent1 = select_parent(population)
             parent2 = select_parent(population)
 
