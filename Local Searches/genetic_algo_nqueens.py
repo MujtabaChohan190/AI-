@@ -58,7 +58,7 @@ def mutate(state, rate):
     new_state = list(state)
 
     for i in range(n):
-        if random.random() < rate:
+        if random.random() < rate:   #The if random.random() < rate: condition ensures that mutation happens randomly with a controlled probability, keeping GA effective.
             new_state[i] = random.randint(0, n - 1)
 
     return new_state
