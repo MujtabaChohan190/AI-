@@ -31,7 +31,7 @@ def get_neighbors(state):
 
     for row in range(n):
         for col in range(n):
-            if col != state[row]:  # Skip current column
+            if col != state[row]:  # Skip column where queen is already present
                 new_state = list(state)
                 new_state[row] = col
                 neighbors.append(new_state)
