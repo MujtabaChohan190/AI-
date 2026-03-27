@@ -117,7 +117,35 @@ else:
     print("Conflicts:", conflicts)
 
 
+# ============================================================
+# GENETIC ALGORITHM N-QUEENS — HOW IT WORKS
+# ============================================================
 
+# STEP 1 — CREATE POPULATION
+# Make 50 random boards → population = [board1, board2...board50]
+# Each board = individual, conflicts = fitness
+
+# STEP 2 — CHECK BEST EACH GENERATION
+# Find board with min conflicts in population
+# If conflicts=0 → SOLUTION found → return immediately ✅
+
+# STEP 3 — SELECT PARENTS (Tournament)
+# Pick 3 random individuals from population
+# Best of 3 (lowest conflicts) becomes parent
+# Do this twice → get parent1 and parent2
+
+# STEP 4 — CROSSOVER
+# Pick random split point
+# child = parent1[:point] + parent2[point:]
+# Child inherits from both parents
+
+# STEP 5 — MUTATE
+# Each gene has 10% chance of random change
+# Prevents population from getting stuck
+
+# STEP 6 — REPEAT
+# Build 50 new children → replace old population
+# Run for max 500 generations
 
 
 
