@@ -28,10 +28,10 @@ def beam_search(start, goal, beam_width=2):
                 new_cost = cost + edge_cost
                 new_path = path + [neighbor]
                 candidates.append((new_cost, new_path))
-        
+  #if there is no expanded nodes from current node ie candidates       
         if not candidates:
             return None, float('inf')
-        
+  #there are candidates so sort it       
         candidates.sort(key=lambda x: x[0])
         beam = candidates[:beam_width]
     
