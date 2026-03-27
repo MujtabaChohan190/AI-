@@ -1,3 +1,148 @@
+import random
+
+# =========================
+# Fitness Function
+# =========================
+# Counts number of attacking queen pairs (lower is better)
+def calculate_conflicts(state):
+    conflicts = 0
+    n = len(state)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if state[i] == state[j] or abs(state[i] - state[j]) == abs(i - j):
+                conflicts += 1
+
+    return conflicts
+
+
+# =========================
+# Create Initial Population
+# =========================
+def create_population(n, size):
+    population = []
+    for _ in range(size):
+        individual = [random.randint(0, n - 1) for _ in range(n)]
+        population.append(individual)
+    return population
+
+
+# =========================
+# Selection (Tournament)
+# =========================
+def select_parent(population):
+    # pick 3 random individuals
+    sample = random.sample(population, 3)
+
+    # return the best (least conflicts)
+    best = min(sample, key=calculate_conflicts)
+    return best
+
+
+# =========================
+# Crossover
+# =========================
+def crossover(parent1, parent2):
+    n = len(parent1)
+    point = random.randint(1, n - 1)
+
+    child = parent1[:point] + parent2[point:]
+    return child
+
+
+# =========================
+# Mutation
+# =========================
+def mutate(state, rate):
+    n = len(state)
+    new_state = list(state)
+
+    for i in range(n):
+        if random.random() < rate:
+            new_state[i] = random.randint(0, n - 1)
+
+    return new_state
+
+
+# =========================
+# Genetic Algorithm
+# =========================
+def genetic_algorithm(n):
+
+    population_size = 50
+    mutation_rate = 0.1
+    max_generations = 500
+
+    # Step 1: create population
+    population = create_population(n, population_size)
+
+    for generation in range(max_generations):
+
+        # Step 2: check best solution
+        best = min(population, key=calculate_conflicts)
+        best_conflicts = calculate_conflicts(best)
+
+        if best_conflicts == 0:
+            print("Solution found at generation", generation)
+            return best, best_conflicts
+
+        # Step 3: create new population
+        new_population = []
+
+        while len(new_population) < population_size:
+            parent1 = select_parent(population)
+            parent2 = select_parent(population)
+
+            child = crossover(parent1, parent2)
+            child = mutate(child, mutation_rate)
+
+            new_population.append(child)
+
+        population = new_population
+
+    # if no perfect solution found
+    return best, best_conflicts
+
+
+# =========================
+# Run Genetic Algorithm
+# =========================
+n = 8
+solution, conflicts = genetic_algorithm(n)
+
+if conflicts == 0:
+    print("Solution:", solution)
+else:
+    print("Best found:", solution)
+    print("Conflicts:", conflicts)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # GENETIC ALGORITHM - N-QUEENS PROBLEM
 # This code solves N-Queens using Genetic Algorithm
 
@@ -114,3 +259,9 @@ if fitness == 0:
 else:
     print(f"\n✗ Near-optimal solution ({fitness} conflicts remaining)")
     print_board(solution)
+
+
+
+
+
+
