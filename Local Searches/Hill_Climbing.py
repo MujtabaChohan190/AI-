@@ -32,9 +32,9 @@ def get_neighbors(state):
     for row in range(n):
         for col in range(n):
             if col != state[row]:  # Skip column where queen is already present
-                new_state = list(state)
-                new_state[row] = col
-                neighbors.append(new_state)
+                new_state = list(state)  # makes copy of current state so we dont modify the original
+                new_state[row] = col  #move the queen in current row to new column - hence generating all neghbours
+                neighbors.append(new_state) #add this new board configuration to neighbours list
 
     return neighbors
 
@@ -48,7 +48,7 @@ def simple_hill_climbing(n):
     Returns a state (list of queen positions) and its conflicts
     """
     # Start with a random state
-    current_state = [random.randint(0, n - 1) for _ in range(n)]
+    current_state = [random.randint(0, n - 1) for _ in range(n)]   #creates random state table
     current_conflicts = calculate_conflicts(current_state)
 
     while True:
