@@ -52,3 +52,32 @@ if path:
     print(f"Total cost: {cost}")
 else:
     print("No path found!")
+
+
+
+
+
+# ============================================================
+# BEAM SEARCH — HOW IT WORKS
+# ============================================================
+
+# STEP 1 — SETUP
+# beam = [(0, ['S'])]  ← one path, just start node, cost 0
+# beam_width = 2       ← only keep top 2 paths at each level
+
+# STEP 2 — LOOP (repeat while beam has paths)
+# For every path in beam → get last node (current position)
+# Expand current → build new paths by appending neighbors
+# Collect all into candidates list
+
+# STEP 3 — GOAL CHECK
+# If last node of any path == goal → return that path ✅
+
+# STEP 4 — PRUNE (heart of beam search)
+# Sort candidates by cost
+# Keep only top beam_width paths → discard rest ❌
+# beam = candidates[:beam_width]
+
+# STEP 5 — REPEAT
+# New beam has only top k paths
+# Keep expanding until goal found or beam empt
