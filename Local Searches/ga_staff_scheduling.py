@@ -1,3 +1,57 @@
+# ==========================================================
+# QUESTION: Staff Scheduling using Genetic Algorithm
+# ==========================================================
+# Write a program to generate an optimal staff schedule
+# using a Genetic Algorithm.
+
+# ----------------------------------------------------------
+# Problem Description:
+# A company needs to assign staff members to different shifts
+# while satisfying the following constraints:
+# 1. Each shift must have at least a minimum number of staff.
+# 2. A staff member should not work consecutive shifts.
+# 3. Each staff member should not exceed a maximum number of shifts.
+# ----------------------------------------------------------
+
+# Requirements:
+# - Number of staff: 5
+# - Number of shifts: 7
+# - Minimum staff per shift: 2
+# - Maximum shifts per staff: 4
+
+# ----------------------------------------------------------
+# Tasks:
+# 1. Representation:
+#    - Represent schedule as a 2D list
+#    - Rows = staff, Columns = shifts
+#    - 1 = assigned, 0 = not assigned
+#
+# 2. Fitness Function:
+#    - Add penalty if shift has fewer staff than required
+#    - Add penalty if a staff works consecutive shifts
+#    - Add penalty if staff exceeds max shifts
+#
+# 3. Genetic Algorithm Steps:
+#    - Generate initial random population
+#    - Evaluate fitness of each schedule
+#    - Select best schedules as parents
+#    - Apply crossover to create new schedules
+#    - Apply mutation randomly
+#    - Repeat for multiple generations
+#
+# 4. Output:
+#    - Display best schedule found
+#    - Display fitness (penalty value)
+#    - Display shift coverage
+# ----------------------------------------------------------
+
+# Expected Outcome:
+# - Minimize penalty
+# - Perfect schedule has fitness = 0
+# ==========================================================
+
+
+
 import random
 
 n = 8
