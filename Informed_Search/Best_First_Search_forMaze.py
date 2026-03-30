@@ -4,73 +4,65 @@
 # the node with the lowest heuristic value first and
 # reconstructs the path once the goal is reached.
 
-
-
 from queue import PriorityQueue
 
-class Node:
-
-    def __init__(self, position, parent=None):
-        self.position = position
-        self.parent = parent
-        self.g = 0
-        self.h = 0
-        self.f = 0
-
-    def __lt__(self, other):
-        return self.f < other.f
+# 🔹 Heuristic (single goal version)
+def heuristic(pos, goal):
+    return abs(pos[0] - goal[0]) + abs(pos[1] - goal[1])
 
 
-def heuristic(current_pos, end_pos):
-    return abs(current_pos[0] - end_pos[0]) + abs(current_pos[1] - end_pos[1])
+def best_first_search(maze, start, goal):
 
-
-def best_first_search(maze, start, end):
-    
-    rows, cols = len(maze), len(maze[0])
-    start_node = Node(start)
-    end_node = Node(end)
+    rows = len(maze)
+    cols = len(maze[0])
 
     frontier = PriorityQueue()
-    frontier.put(start_node)
+    frontier.put((0, start))   # (priority, position)
+
     visited = set()
+    parent = {start: None}
 
     while not frontier.empty():
 
-        current_node = frontier.get()
-        current_pos = current_node.position
-#if goal found , trace back to parents
-        if current_pos == end:
+        _, current = frontier.get()
+
+        # 🔹 Goal check
+        if current == goal:
             path = []
+            while current:
+                path.append(current)
+                current = parent[current]
 
-            while current_node:
-                path.append(current_node.position)
-                current_node = current_node.parent
+            path.reverse()
+            return path
 
-            return path[::-1]
-#not found goal , add to viisted and expand the nodes
-        visited.add(current_pos)
+        visited.add(current)
+
+        x, y = current
 
         for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:
 
-            new_pos = (current_pos[0] + dx, current_pos[1] + dy)
+            nx = x + dx
+            ny = y + dy
+            next_pos = (nx, ny)
 
-            if (0 <= new_pos[0] < rows and
-                0 <= new_pos[1] < cols and
-                maze[new_pos[0]][new_pos[1]] == 0 and
-                new_pos not in visited):
+            if (0 <= nx < rows and
+                0 <= ny < cols and
+                maze[nx][ny] == 0 and
+                next_pos not in visited):
 
-                new_node = Node(new_pos, current_node)
-                new_node.g = current_node.g + 1
-                new_node.h = heuristic(new_pos, end)
-                new_node.f = new_node.h
+                parent[next_pos] = current
 
-                frontier.put(new_node)
-                visited.add(new_pos)
+                # 🔹 priority = heuristic
+                h = heuristic(next_pos, goal)
+
+                frontier.put((h, next_pos))
+                visited.add(next_pos)
 
     return None
 
 
+# 🔹 TEST (your original maze)
 maze = [
 [0,0,1,0,0],
 [0,0,0,0,0],
@@ -80,14 +72,11 @@ maze = [
 ]
 
 start = (0,0)
-end = (4,4)
+goal = (4,4)
 
-path = best_first_search(maze,start,end)
+path = best_first_search(maze, start, goal)
 
-if path:
-    print("Path found:", path)
-else:
-    print("No path found")
+print("Path:", path)
 
 
 
