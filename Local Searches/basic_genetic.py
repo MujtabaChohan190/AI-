@@ -4,7 +4,7 @@ import random
 # FITNESS FUNCTION
 # Maximize number of 1s in chromosome
 # ==========================================================
-def fitness(chromosome):
+def fitness(chromosome):   #WE GET CHROMOSE FROM POPULATION
     return sum(chromosome)
 
 
