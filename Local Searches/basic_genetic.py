@@ -74,16 +74,16 @@ def mutate(chromosome, mutation_rate):
 # GENETIC ALGORITHM
 # ==========================================================
 def genetic_algorithm(initial_population, generations, mutation_rate):
-
+    #start from initial population
     population = initial_population
-
+    #repeats for however generations specified
     for generation in range(generations):
 
-        # Evaluate fitness
+        # Evaluate fitness_values of all for selection 
         fitness_values = [fitness(ch) for ch in population]
 
         print(f"Generation {generation+1} | Best Fitness: {max(fitness_values)}")
-
+        #rebrand new population
         new_population = []
 
         # Generate new population
