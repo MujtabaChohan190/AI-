@@ -113,3 +113,46 @@ print("Predictions:", y_pred)
 print("MSE:", mse)
 print("R2 Score:", r2)
 print("LR Testing Accuracy (%):", accuracy)
+
+
+
+--------------------------
+
+
+
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# ---------------- LOAD DATA ----------------
+# Example dummy data (replace with your dataset)
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([0, 1, 0, 1, 0])   # Binary classes
+
+# ---------------- SPLIT DATA ----------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# ---------------- CREATE MODEL ----------------
+dt = DecisionTreeClassifier()
+
+# ---------------- TRAIN MODEL ----------------
+dt.fit(X_train, y_train)
+
+# ---------------- PREDICT ----------------
+y_pred = dt.predict(X_test)
+
+# ---------------- EVALUATE ----------------
+
+# Predictions
+print("Predictions:", y_pred)
+
+# Training Accuracy
+train_acc = dt.score(X_train, y_train) * 100
+print("DT Training Accuracy (%):", train_acc)
+
+# Testing Accuracy
+test_acc = accuracy_score(y_test, y_pred) * 100
+print("DT Testing Accuracy (%):", test_acc)
