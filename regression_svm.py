@@ -32,7 +32,8 @@ y_pred = svm.predict(X_test)
 # ---------------- EVALUATE ----------------
 print("SVM Accuracy:", accuracy_score(y_test, y_pred))
 
-
+SVM ACCURACY - ACCURACY_SCORE
+LINEAR -  R2 SCORE ,
 
 
 ------------------------------------------
