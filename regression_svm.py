@@ -69,3 +69,46 @@ y_pred = lr.predict(X_test)
 # ---------------- EVALUATE ----------------
 print("Predictions:", y_pred)
 print("MSE:", mean_squared_error(y_test, y_pred))
+
+
+
+------------------------------------------------------------------
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+
+# ---------------- LOAD DATA ----------------
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2, 4, 5, 4, 5])
+
+# ---------------- SPLIT DATA ----------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# ---------------- CREATE MODEL ----------------
+lr = LinearRegression()
+
+# ---------------- TRAIN MODEL ----------------
+lr.fit(X_train, y_train)
+
+# ---------------- PREDICT ----------------
+y_pred = lr.predict(X_test)
+
+# ---------------- EVALUATE ----------------
+
+# 1. Mean Squared Error (actual regression metric)
+mse = mean_squared_error(y_test, y_pred)
+
+# 2. R² Score
+r2 = r2_score(y_test, y_pred)
+
+# 3. "Accuracy" style (R² in percentage form)
+accuracy = r2 * 100
+
+print("Predictions:", y_pred)
+print("MSE:", mse)
+print("R2 Score:", r2)
+print("LR Testing Accuracy (%):", accuracy)
